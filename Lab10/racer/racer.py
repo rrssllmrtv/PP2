@@ -1,18 +1,12 @@
-import pygame, sys, random
+import pygame, random, time
 from pygame.locals import *
-import random, time
 
 pygame.init()
 
-FPS = 60
-FramePerSec = pygame.time.Clock()
+clock = pygame.time.Clock()
 
-BLUE = (0, 0, 255)
 RED = (255, 0, 0)
-GREEN = (0, 255, 0)
 BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-YELLOW = (255, 215, 0)
 
 SCREEN_WIDTH = 400
 SCREEN_HEIGHT = 600
@@ -20,11 +14,12 @@ SPEED = 5
 SCORE = 0
 COINS_COLLECTED = 0
 
-DISPLAYSURF = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Racer with Coins")
 
 font_big = pygame.font.SysFont("Verdana", 60)
 font_small = pygame.font.SysFont("Verdana", 20)
+
 game_over_text = font_big.render("Game Over", True, BLACK)
 game_over_rect = game_over_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
 
@@ -44,6 +39,7 @@ class Enemy(pygame.sprite.Sprite):
     def move(self):
         global SCORE
         self.rect.move_ip(0, SPEED)
+
         if self.rect.top > SCREEN_HEIGHT:
             SCORE += 1
             self.reset_position()
@@ -58,8 +54,10 @@ class Player(pygame.sprite.Sprite):
 
     def move(self):
         pressed_keys = pygame.key.get_pressed()
+
         if self.rect.left > 0 and pressed_keys[K_LEFT]:
             self.rect.move_ip(-5, 0)
+
         if self.rect.right < SCREEN_WIDTH and pressed_keys[K_RIGHT]:
             self.rect.move_ip(5, 0)
 
@@ -79,6 +77,7 @@ class Coin(pygame.sprite.Sprite):
     def move(self):
         if self.active:
             self.rect.move_ip(0, SPEED)
+
             if self.rect.top > SCREEN_HEIGHT:
                 self.active = False
 
@@ -87,28 +86,29 @@ class Coin(pygame.sprite.Sprite):
             surface.blit(self.image, self.rect)
 
 
-P1 = Player()
-E1 = Enemy()
+player = Player()
+enemy = Enemy()
 coin = Coin()
 
 enemies = pygame.sprite.Group()
-enemies.add(E1)
+enemies.add(enemy)
 
 all_sprites = pygame.sprite.Group()
-all_sprites.add(P1)
-all_sprites.add(E1)
+all_sprites.add(player)
+all_sprites.add(enemy)
 
 INC_SPEED = pygame.USEREVENT + 1
 SPAWN_COIN = pygame.USEREVENT + 2
 
 pygame.time.set_timer(INC_SPEED, 1000)
-pygame.time.set_timer(SPAWN_COIN, 1800)
+pygame.time.set_timer(SPAWN_COIN, 1000)
 
-while True:
+done = True
+
+while done:
     for event in pygame.event.get():
         if event.type == QUIT:
-            pygame.quit()
-            sys.exit()
+            done = False
 
         if event.type == INC_SPEED:
             SPEED += 0.2
@@ -117,34 +117,34 @@ while True:
             if not coin.active:
                 coin.spawn()
 
-    DISPLAYSURF.blit(background, (0, 0))
+    screen.blit(background, (0, 0))
 
-    score_text = font_small.render(f"Score: {SCORE}", True, BLACK)
-    DISPLAYSURF.blit(score_text, (10, 10))
+    score_text = font_small.render("Score: " + str(SCORE), True, BLACK)
+    screen.blit(score_text, (10, 10))
 
-    coins_text = font_small.render(f"Coins: {COINS_COLLECTED}", True, BLACK)
+    coins_text = font_small.render("Coins: " + str(COINS_COLLECTED), True, BLACK)
     coins_rect = coins_text.get_rect(topright=(SCREEN_WIDTH - 10, 10))
-    DISPLAYSURF.blit(coins_text, coins_rect)
+    screen.blit(coins_text, coins_rect)
 
     for entity in all_sprites:
-        DISPLAYSURF.blit(entity.image, entity.rect)
         entity.move()
+        screen.blit(entity.image, entity.rect)
 
     coin.move()
-    coin.draw_if_active(DISPLAYSURF)
+    coin.draw_if_active(screen)
 
-    if coin.active and pygame.sprite.collide_rect(P1, coin):
+    if coin.active and pygame.sprite.collide_rect(player, coin):
         COINS_COLLECTED += 1
         coin.active = False
-        coin.rect.top = SCREEN_HEIGHT + 100
 
-    if pygame.sprite.spritecollideany(P1, enemies):
-        DISPLAYSURF.fill(RED)
-        DISPLAYSURF.blit(game_over_text, game_over_rect)
+    if pygame.sprite.spritecollideany(player, enemies):
+        screen.fill(RED)
+        screen.blit(game_over_text, game_over_rect)
         pygame.display.update()
-        time.sleep(2)
-        pygame.quit()
-        sys.exit()
+        time.sleep(1)
+        done = False
 
     pygame.display.update()
-    FramePerSec.tick(FPS)
+    clock.tick(60)
+
+pygame.quit()
