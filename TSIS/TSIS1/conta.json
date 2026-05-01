@@ -1,0 +1,119 @@
+[
+    {
+        "name": "marisha",
+        "email": "mari@gmail.com",
+        "birthday": "11.01.2001",
+        "group": "Friend",
+        "date_added": "30.04.2026 16:13",
+        "phones": [
+            {
+                "phone": "123456",
+                "type": "mobile"
+            }
+        ]
+    },
+    {
+        "name": "danchik",
+        "email": "dana@mail.ru",
+        "birthday": "12.02.2002",
+        "group": "Friend",
+        "date_added": "30.04.2026 16:13",
+        "phones": [
+            {
+                "phone": "789456",
+                "type": "mobile"
+            }
+        ]
+    },
+    {
+        "name": "almik",
+        "email": "alm@gm.com",
+        "birthday": "13.03.2003",
+        "group": "Friend",
+        "date_added": "30.04.2026 16:13",
+        "phones": [
+            {
+                "phone": "159876",
+                "type": "mobile"
+            }
+        ]
+    },
+    {
+        "name": "rassul",
+        "email": "ras@m.ru",
+        "birthday": "14.04.2004",
+        "group": "Friend",
+        "date_added": "30.04.2026 16:13",
+        "phones": [
+            {
+                "phone": "349765",
+                "type": "mobile"
+            }
+        ]
+    },
+    {
+        "name": "nurai",
+        "email": "nurish@a.com",
+        "birthday": "15.05.2005",
+        "group": "Friend",
+        "date_added": "30.04.2026 16:13",
+        "phones": [
+            {
+                "phone": "638527",
+                "type": "mobile"
+            }
+        ]
+    },
+    {
+        "name": "nurik",
+        "email": "nurikw@ggg.ru",
+        "birthday": "16.06.2006",
+        "group": "Friend",
+        "date_added": "30.04.2026 16:13",
+        "phones": [
+            {
+                "phone": "654982",
+                "type": "mobile"
+            }
+        ]
+    },
+    {
+        "name": "abdu",
+        "email": "abdus@a.com",
+        "birthday": "17.07.2007",
+        "group": "Friend",
+        "date_added": "30.04.2026 16:13",
+        "phones": [
+            {
+                "phone": "653789",
+                "type": "mobile"
+            }
+        ]
+    },
+    {
+        "name": "mom",
+        "email": "oles@mail.ru",
+        "birthday": "18.08.2008",
+        "group": "Family",
+        "date_added": "30.04.2026 16:13",
+        "phones": [
+            {
+                "phone": "852146",
+                "type": "mobile"
+            }
+        ]
+    },
+    {
+        "name": "dad",
+        "email": "andr@gmail.com",
+        "birthday": "19.09.2009",
+        "group": "Family",
+        "date_added": "30.04.2026 16:13",
+        "phones": [
+            {
+                "phone": "964731",
+                "type": "mobile"
+            }
+        ]
+    }
+]
